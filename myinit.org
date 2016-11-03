@@ -113,6 +113,12 @@
     ("M-x" . smex))
 #+END_SRC
   
+* org-reveal
+  #+BEGIN_SRC emacs-lisp
+    (use-package ox-reveal
+      :ensure t)
+  #+END_SRC
+  
 * projectile
   #+BEGIN_SRC emacs-lisp
     (use-package projectile
