@@ -23,6 +23,7 @@
   (size-indication-mode t)
   (scroll-bar-mode -1)
   (set-face-attribute 'default nil :height 120)
+  (add-hook 'before-save-hook #'delete-trailing-whitespace)
 #+END_SRC
 
 * try
