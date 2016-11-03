@@ -126,3 +126,28 @@
       :config
       (projectile-global-mode 1))
   #+END_SRC
+  
+* paredit
+  #+BEGIN_SRC emacs-lisp
+    (use-package paredit
+      :ensure t)
+  #+END_SRC
+  
+* clojure mode
+  #+BEGIN_SRC emacs-lisp
+    (use-package clojure-mode
+      :ensure t
+      :config
+      (add-hook 'clojure-mode-hook #'paredit-mode)
+      (add-hook 'clojure-mode-hook #'subword-mode)
+      (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode))
+  #+END_SRC
+  
+* cider
+#+BEGIN_SRC emacs-lisp
+  (use-package cider
+    :ensure t
+    :config
+    (add-hook 'cider-repl-mode-hook #'paredit-mode)
+    (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode))
+#+END_SRC
