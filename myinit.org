@@ -36,6 +36,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :ensure t
+    :diminish which-key-mode
     :config
     (which-key-mode))
 #+END_SRC
@@ -49,7 +50,6 @@
     :ensure t
     :config
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-
 #+END_SRC
 
 * evil
@@ -62,7 +62,7 @@
   (use-package evil-surround
     :ensure t
     :config
-    (global-evil-surround-mode 1)
+    (global-evil-surround-mode 1))
 #+END_SRC
 
 * avy
@@ -70,7 +70,6 @@
   (use-package avy
     :ensure t
     :bind ("M-s" . avy-goto-char))
-
 #+END_SRC
 
 * zenburn-theme
@@ -81,15 +80,15 @@
     (load-theme 'zenburn t))
 #+END_SRC
 
-
 * company
   #+BEGIN_SRC emacs-lisp
     (use-package company
       :ensure t
+      :diminish company-mode
       :config
       (global-company-mode))
   #+END_SRC
-  
+
 * magit
 #+BEGIN_SRC emacs-lisp
   (use-package magit
@@ -97,15 +96,13 @@
     :bind
     (("C-x g" . magit-status)))
 #+END_SRC
-  
+
 * rainbow-delimiters
   #+BEGIN_SRC emacs-lisp
     (use-package rainbow-delimiters
-      :ensure t
-      :config
-      (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+      :ensure t)
   #+END_SRC
-  
+
 * smex
 #+BEGIN_SRC emacs-lisp
   (use-package smex
@@ -113,27 +110,28 @@
     :bind
     ("M-x" . smex))
 #+END_SRC
-  
+
 * org-reveal
   #+BEGIN_SRC emacs-lisp
     (use-package ox-reveal
       :ensure t)
   #+END_SRC
-  
+
 * projectile
   #+BEGIN_SRC emacs-lisp
     (use-package projectile
       :ensure t
+      :diminish projectile-mode
       :config
       (projectile-global-mode 1))
   #+END_SRC
-  
+
 * paredit
   #+BEGIN_SRC emacs-lisp
     (use-package paredit
       :ensure t)
   #+END_SRC
-  
+
 * clojure mode
   #+BEGIN_SRC emacs-lisp
     (use-package clojure-mode
@@ -143,7 +141,7 @@
       (add-hook 'clojure-mode-hook #'subword-mode)
       (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode))
   #+END_SRC
-  
+
 * cider
 #+BEGIN_SRC emacs-lisp
   (use-package cider
