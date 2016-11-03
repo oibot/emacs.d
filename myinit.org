@@ -112,3 +112,11 @@
     :bind
     ("M-x" . smex))
 #+END_SRC
+  
+* projectile
+  #+BEGIN_SRC emacs-lisp
+    (use-package projectile
+      :ensure t
+      :config
+      (projectile-global-mode 1))
+  #+END_SRC
