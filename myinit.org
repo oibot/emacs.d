@@ -1,0 +1,90 @@
+* Variables
+#+BEGIN_SRC emacs-lisp
+  (setq user-full-name "Tobias Ostner"
+        user-mail-address "tobias@gmail.com")
+  (setq inhibit-startup-message t)
+  (setq ido-enable-flex-matching t)
+  (setq ido-everywhere t)
+  (setq ring-bell-function 'ignore)
+  (setq require-final-newline t)
+  (defalias 'list-buffers 'ibuffer)
+#+END_SRC
+* Configurations
+#+BEGIN_SRC emacs-lisp
+  (tool-bar-mode -1)
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (ido-mode 1)
+  (blink-cursor-mode -1)
+  (global-auto-revert-mode t)
+  (global-hl-line-mode 1)
+  (line-number-mode t)
+  (column-number-mode t)
+  (size-indication-mode t)
+  (scroll-bar-mode -1)
+  (set-face-attribute 'default nil :height 120)
+#+END_SRC
+* try
+#+BEGIN_SRC emacs-lisp
+  (use-package try
+    :ensure t)
+#+END_SRC
+* which-key
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :ensure t
+    :config
+    (which-key-mode))
+#+END_SRC
+* Org
+#+BEGIN_SRC emacs-lisp
+  (use-package org
+    :ensure t)
+
+  (use-package org-bullets
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+#+END_SRC
+* Evil
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :ensure t
+    :config
+    (evil-mode t))
+
+  (use-package evil-surround
+    :ensure t
+    :config
+    (global-evil-surround-mode 1)
+#+END_SRC
+* Avy
+#+BEGIN_SRC emacs-lisp
+  (use-package avy
+    :ensure t
+    :bind ("M-s" . avy-goto-char))
+
+#+END_SRC
+* zenburn-theme
+#+BEGIN_SRC emacs-lisp
+  (use-package zenburn-theme
+    :ensure t
+    :config
+    (load-theme 'zenburn t))
+#+END_SRC
+
+* company
+  #+BEGIN_SRC emacs-lisp
+    (use-package company
+      :ensure t
+      :config
+      (global-company-mode))
+  #+END_SRC
+  
+* magit
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :ensure t
+    :bind
+    (("C-x g" . magit-status)))
+#+END_SRC
