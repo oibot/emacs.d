@@ -104,3 +104,11 @@
       :config
       (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
   #+END_SRC
+  
+* smex
+#+BEGIN_SRC emacs-lisp
+  (use-package smex
+    :ensure t
+    :bind
+    ("M-x" . smex))
+#+END_SRC
