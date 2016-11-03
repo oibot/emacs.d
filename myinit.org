@@ -9,6 +9,7 @@
   (setq require-final-newline t)
   (defalias 'list-buffers 'ibuffer)
 #+END_SRC
+
 * Configurations
 #+BEGIN_SRC emacs-lisp
   (tool-bar-mode -1)
@@ -23,11 +24,13 @@
   (scroll-bar-mode -1)
   (set-face-attribute 'default nil :height 120)
 #+END_SRC
+
 * try
 #+BEGIN_SRC emacs-lisp
   (use-package try
     :ensure t)
 #+END_SRC
+
 * which-key
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
@@ -35,7 +38,8 @@
     :config
     (which-key-mode))
 #+END_SRC
-* Org
+
+* org
 #+BEGIN_SRC emacs-lisp
   (use-package org
     :ensure t)
@@ -46,7 +50,8 @@
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 #+END_SRC
-* Evil
+
+* evil
 #+BEGIN_SRC emacs-lisp
   (use-package evil
     :ensure t
@@ -58,13 +63,15 @@
     :config
     (global-evil-surround-mode 1)
 #+END_SRC
-* Avy
+
+* avy
 #+BEGIN_SRC emacs-lisp
   (use-package avy
     :ensure t
     :bind ("M-s" . avy-goto-char))
 
 #+END_SRC
+
 * zenburn-theme
 #+BEGIN_SRC emacs-lisp
   (use-package zenburn-theme
@@ -72,6 +79,7 @@
     :config
     (load-theme 'zenburn t))
 #+END_SRC
+
 
 * company
   #+BEGIN_SRC emacs-lisp
@@ -88,3 +96,11 @@
     :bind
     (("C-x g" . magit-status)))
 #+END_SRC
+  
+* rainbow-delimiters
+  #+BEGIN_SRC emacs-lisp
+    (use-package rainbow-delimiters
+      :ensure t
+      :config
+      (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  #+END_SRC
