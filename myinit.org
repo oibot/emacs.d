@@ -43,13 +43,15 @@
 
 * org
 #+BEGIN_SRC emacs-lisp
-  (use-package org
-    :ensure t)
+    (use-package org
+      :ensure t
+      :config
+      (setq org-log-done 'time))
 
-  (use-package org-bullets
-    :ensure t
-    :config
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+    (use-package org-bullets
+      :ensure t
+      :config
+      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
 
 * evil
