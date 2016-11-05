@@ -7,6 +7,16 @@
   (setq ido-everywhere t)
   (setq ring-bell-function 'ignore)
   (setq require-final-newline t)
+  (setq whitespace-style '(face space-mark indentation trailing))
+  (setq whitespace-display-mappings
+        '((space-mark 32 [183] [46])
+          (space-mark 160 [164] [95])
+          (space-mark 2208 [2212] [95])
+          (space-mark 2336 [2340] [95])
+          (space-mark 3616 [3620] [95])
+          (space-mark 3872 [3876] [95])))
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 8)
   (defalias 'list-buffers 'ibuffer)
 #+END_SRC
 
