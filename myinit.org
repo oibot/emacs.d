@@ -16,10 +16,13 @@
           (space-mark 3616 [3620] [95])
           (space-mark 3872 [3876] [95])))
   (setq-default indent-tabs-mode nil)
+  (setq backup-directory-alist
+        `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms
+        `((".*" ,temporary-file-directory t)))
   (setq-default tab-width 8)
   (defalias 'list-buffers 'ibuffer)
 #+END_SRC
-
 * Configurations
 #+BEGIN_SRC emacs-lisp
   (tool-bar-mode -1)
@@ -32,7 +35,7 @@
   (column-number-mode t)
   (size-indication-mode t)
   (scroll-bar-mode -1)
-  (set-face-attribute 'default nil :height 120)
+  (set-face-attribute 'default nil :height 110)
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
   (menu-bar-mode -1)
 #+END_SRC
@@ -59,7 +62,7 @@
         :config
         (setq org-log-done 'time)
         (setq org-directory "~/Dropbox/org")
-        (setq org-agenda-files '("~/Dropbox/org"))
+        (setq org-agenda-files '("~/Dropbox/org")))
 
       (use-package org-bullets
         :ensure t
