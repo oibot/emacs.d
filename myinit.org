@@ -39,7 +39,6 @@
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
   (menu-bar-mode -1)
 #+END_SRC
-
 * try
 #+BEGIN_SRC emacs-lisp
   (use-package try
@@ -100,11 +99,15 @@
 
 * company
   #+BEGIN_SRC emacs-lisp
-    (use-package company
-      :ensure t
-      :diminish company-mode
-      :config
-      (global-company-mode))
+        (use-package company
+          :ensure t
+          :diminish company-mode
+          :config
+          (global-company-mode)
+          (setq company-idle-delay 0.2)
+          (setq company-minimum-prefix-length 1)
+          (setq company-show-numbers t)
+          (setq company-tooltip-limit 20))
   #+END_SRC
 
 * magit
