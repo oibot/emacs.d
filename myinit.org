@@ -75,21 +75,27 @@
 * evil
 #+BEGIN_SRC emacs-lisp
   (use-package evil
-    :ensure t
-    :config
-    (evil-mode t))
+    :ensure t)
 
   (use-package evil-surround
     :ensure t
     :config
     (global-evil-surround-mode 1))
+
+  (use-package evil-leader
+    :ensure t
+    :config
+    (global-evil-leader-mode)
+    (evil-mode t) ;; must be set after evil leader mode
+    (evil-leader/set-leader "<SPC>")
+    (evil-leader/set-key
+     "a" 'avy-goto-char))
 #+END_SRC
 
 * avy
 #+BEGIN_SRC emacs-lisp
-  (use-package avy
-    :ensure t
-    :bind ("M-s" . avy-goto-char))
+    (use-package avy
+      :ensure t)
 #+END_SRC
 
 * zenburn-theme
@@ -134,13 +140,11 @@
     :bind
     ("M-x" . smex))
 #+END_SRC
-
 * org-reveal
   #+BEGIN_SRC emacs-lisp
     (use-package ox-reveal
       :ensure t)
   #+END_SRC
-
 * projectile
   #+BEGIN_SRC emacs-lisp
     (use-package projectile
@@ -149,13 +153,11 @@
       :config
       (projectile-global-mode 1))
   #+END_SRC
-
 * paredit
   #+BEGIN_SRC emacs-lisp
     (use-package paredit
       :ensure t)
   #+END_SRC
-
 * clojure mode
   #+BEGIN_SRC emacs-lisp
     (use-package clojure-mode
@@ -165,7 +167,6 @@
       (add-hook 'clojure-mode-hook #'subword-mode)
       (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode))
   #+END_SRC
-
 * cider
 #+BEGIN_SRC emacs-lisp
   (use-package cider
