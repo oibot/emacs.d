@@ -75,7 +75,23 @@
 * evil
 #+BEGIN_SRC emacs-lisp
   (use-package evil
-    :ensure t)
+    :ensure t
+    :config
+    (setq evil-emacs-state-cursor '("red" box))
+    (setq evil-motion-state-cursor '("orange" box))
+    (setq evil-normal-state-cursor '("green" box))
+    (setq evil-visual-state-cursor '("orange" box))
+    (setq evil-insert-state-cursor '("red" bar))
+    (setq evil-replace-state-cursor '("red" bar))
+    (setq evil-operator-state-cursor '("red" hollow))
+
+    (evil-put-property 'evil-state-properties 'normal   :tag " NORMAL ")
+    (evil-put-property 'evil-state-properties 'insert   :tag " INSERT ")
+    (evil-put-property 'evil-state-properties 'visual   :tag " VISUAL ")
+    (evil-put-property 'evil-state-properties 'motion   :tag " MOTION ")
+    (evil-put-property 'evil-state-properties 'emacs    :tag " EMACS ")
+    (evil-put-property 'evil-state-properties 'replace  :tag " REPLACE ")
+    (evil-put-property 'evil-state-properties 'operator :tag " OPERTR "))
 
   (use-package evil-surround
     :ensure t
@@ -89,7 +105,12 @@
     (evil-mode t) ;; must be set after evil leader mode
     (evil-leader/set-leader "<SPC>")
     (evil-leader/set-key
-     "a" 'avy-goto-char))
+      "a" 'avy-goto-char))
+
+  (use-package evil-commentary
+    :ensure t
+    :config
+    (evil-commentary-mode t))
 #+END_SRC
 
 * avy
