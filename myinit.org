@@ -214,3 +214,10 @@
       (ido-vertical-mode 1)
       (setq ido-vertical-show-count t))
 #+END_SRC
+* beacon mode
+#+BEGIN_SRC emacs-lisp
+  (use-package beacon
+    :ensure t
+    :config
+    (beacon-mode))
+#+END_SRC
