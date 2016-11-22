@@ -221,3 +221,10 @@
     :config
     (beacon-mode))
 #+END_SRC
+* git-gutter
+#+BEGIN_SRC emacs-lisp
+    (use-package git-gutter
+      :ensure t
+      :config
+      (global-git-gutter-mode t))
+#+END_SRC
