@@ -252,3 +252,11 @@
       :config
       (global-git-gutter-mode t))
 #+END_SRC
+
+* web-mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package web-mode
+    :ensure t
+    :mode "\\.html?\\'")
+#+END_SRC
