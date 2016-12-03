@@ -106,7 +106,14 @@
     (evil-mode t) ;; must be set after evil leader mode
     (evil-leader/set-leader "<SPC>")
     (evil-leader/set-key
-      "a" 'avy-goto-char))
+      "a" 'avy-goto-char
+      "pw)" 'paredit-wrap-round
+      "pw]" 'paredit-wrap-square
+      "pw}" 'paredit-wrap-curly
+      "pfs" 'paredit-forward-slurp-sexp
+      "pbs" 'paredit-backward-slurp-sexp
+      "pfb" 'paredit-forward-barf-sexp
+      "pbb" 'paredit-backward-barf-sexp))
 
   (use-package evil-commentary
     :ensure t
