@@ -72,7 +72,8 @@
     (setq org-log-done 'time)
     (setq org-directory "~/Dropbox/org")
     (setq org-agenda-files '("~/Dropbox/org"))
-    (setq org-startup-indented t))
+    (setq org-startup-indented t)
+    (setq org-startup-with-inline-images t))
 
   (use-package org-bullets
     :ensure t
@@ -117,6 +118,7 @@
 
   (use-package evil-commentary
     :ensure t
+    :diminish evil-commentary-mode
     :config
     (evil-commentary-mode t))
 #+END_SRC
@@ -250,6 +252,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package beacon
     :ensure t
+    :diminish beacon-mode
     :config
     (beacon-mode))
 #+END_SRC
@@ -272,3 +275,12 @@
     :ensure t
     :mode "\\.html?\\'")
 #+END_SRC
+
+* undo-tree
+
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :diminish undo-tree-mode)
+#+END_SRC
+
