@@ -284,3 +284,10 @@
     :diminish undo-tree-mode)
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+  (use-package smart-mode-line
+    :ensure t
+    :config
+    (sml/setup))
+#+END_SRC
+
