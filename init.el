@@ -11,4 +11,7 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file 'noerror)
+
 (org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org"))
