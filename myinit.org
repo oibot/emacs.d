@@ -224,11 +224,33 @@
 * cider
 
 #+BEGIN_SRC emacs-lisp
+  (defvar cider-repl-conditions
+    "(cond
+      (and (resolve 'user/run) (resolve 'user/browser-repl))
+      (eval '(do (user/run) (user/browser-repl)))
+
+      (try
+       (require 'figwheel-sidecar.repl-api)
+       (resolve 'figwheel-sidecar.repl-api/start-figwheel!)
+       (catch Throwable _))
+       (eval '(do (figwheel-sidecar.repl-api/start-figwheel!)
+                 (figwheel-sidecar.repl-api/cljs-repl)))
+
+      (try
+       (require 'cemerick.piggieback)
+       (resolve 'cemerick.piggieback/cljs-repl)
+       (catch Throwable _))
+      (eval '(cemerick.piggieback/cljs-repl (cljs.repl.rhino/repl-env)))
+
+      :else
+      (throw (ex-info \"Failed to initialize CLJS repl.\" {})))")
+
   (use-package cider
     :ensure t
     :config
     (add-hook 'cider-repl-mode-hook #'paredit-mode)
-    (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode))
+    (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+    (setq cider-cljs-lein-repl cider-repl-conditions))
 #+END_SRC
 
 * swift-mode
@@ -270,7 +292,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package git-gutter
     :ensure t
-    :diminish t
+    :diminish git-gutter-mode
     :config
     (global-git-gutter-mode t)
     (custom-set-variables '(git-gutter:update-interval 2)))
@@ -310,4 +332,3 @@
            ("\\.markdown\\'" . markdown-mode))
     :init (setq markdown-command "multimarkdown"))
 #+END_SRC
-
