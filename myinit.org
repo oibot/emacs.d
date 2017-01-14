@@ -236,6 +236,18 @@
           (add-hook 'clojure-mode-hook #'show-paren-mode))
   #+END_SRC
 
+* clj-refactor
+
+#+BEGIN_SRC emacs-lisp
+  (use-package clj-refactor
+    :ensure t
+    :config
+    (add-hook 'clojure-mode-hook #'(lambda ()
+                                     (clj-refactor-mode t)
+                                     (cljr-add-keybindings-with-prefix "C-c C-m")
+                                     (yas-minor-mode t))))
+#+END_SRC
+
 * cider
 
 #+BEGIN_SRC emacs-lisp
@@ -342,18 +354,6 @@
     (ivy-mode 1)
     (setq ivy-use-virtual-buffers t)
     (setq ivy-count-format "(%d/%d) "))
-#+END_SRC
-
-* clj-refactor
-
-#+BEGIN_SRC emacs-lisp
-  (use-package clj-refactor
-    :ensure t
-    :config
-    (add-hook 'clojure-mode-hook #'(lambda ()
-                                     (clj-refactor-mode t)
-                                     (cljr-add-keybindings-with-prefix "C-c C-m")
-                                     (yas-minor-mode t))))
 #+END_SRC
 
 * smart-mode-line
