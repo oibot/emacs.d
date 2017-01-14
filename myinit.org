@@ -77,16 +77,37 @@
   (use-package org
     :ensure t
     :config
-    (setq org-log-done 'time)
     (setq org-directory "~/Dropbox/org")
     (setq org-agenda-files '("~/Dropbox/org"))
+    (setq org-log-done 'time)
+
     (setq org-startup-indented t)
-    (setq org-startup-with-inline-images t))
+    (setq org-startup-with-inline-images t)
+    (setq org-startup-with-latex-preview t)
+    (plist-put org-format-latex-options :scale 2.5)
+    (setq org-src-fontify-natively t)
+
+    (require 'ob-clojure)
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((clojure . t)
+       (emacs-lisp . t)))
+    (setq org-babel-clojure-backend 'cider)
+    (setq org-confirm-babel-evaluate nil)
+
+    (add-hook 'org-mode-hook (lambda ()
+                               (setq fill-column 90)
+                               (turn-on-auto-fill))))
 
   (use-package org-bullets
     :ensure t
     :config
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ox-reveal
+    :ensure t)
 #+END_SRC
 
 * evil
@@ -185,13 +206,6 @@
     :bind
     ("M-x" . smex))
 #+END_SRC
-
-* org-reveal
-
-  #+BEGIN_SRC emacs-lisp
-    (use-package ox-reveal
-      :ensure t)
-  #+END_SRC
 
 * projectile
 
