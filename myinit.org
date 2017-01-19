@@ -361,15 +361,11 @@
     (ivy-mode 1)
     (setq ivy-use-virtual-buffers t)
     (setq ivy-count-format "(%d/%d) "))
-#+END_SRC
 
-* smart-mode-line
-
-#+BEGIN_SRC emacs-lisp
-  (use-package smart-mode-line
+  (use-package counsel-projectile
     :ensure t
     :config
-    (sml/setup))
+    (counsel-projectile-on))
 #+END_SRC
 
 * markdown-mode
@@ -384,9 +380,40 @@
     :init (setq markdown-command "multimarkdown"))
 #+END_SRC
 
-* clojure-cheatsheet
+* yaml-mode
 
 #+BEGIN_SRC emacs-lisp
-  (use-package clojure-cheatsheet
-    :ensure t)
+  (use-package yaml-mode
+    :ensure t
+    :mode (("\\.yml\\'" . yaml-mode)))
+
+#+END_SRC
+
+* Themes
+
+#+BEGIN_SRC emacs-lisp
+  (use-package atom-one-dark-theme
+    :ensure t
+    :config
+    (load-theme 'atom-one-dark))
+
+  (use-package zenburn-theme
+    :ensure t
+    :config)
+#+END_SRC
+
+* Spaceline
+
+#+BEGIN_SRC emacs-lisp
+  (use-package spaceline
+    :ensure t
+    :config
+    (require 'spaceline-config)
+    (spaceline-spacemacs-theme)
+    (setq powerline-default-separator 'nil)
+    (setq powerline-height 1.1)
+    (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+    (set-face-attribute 'mode-line nil :box nil)
+    (set-face-attribute 'mode-line nil :height 1.05)
+    (spaceline-compile))
 #+END_SRC
