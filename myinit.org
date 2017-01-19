@@ -280,6 +280,13 @@
     (setq cider-cljs-lein-repl cider-repl-conditions))
 #+END_SRC
 
+* clojure-cheatsheet
+
+#+BEGIN_SRC emacs-lisp
+  (use-package clojure-cheatsheet
+    :ensure t)
+#+END_SRC
+
 * swift-mode
 
 #+BEGIN_SRC emacs-lisp
