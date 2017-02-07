@@ -379,6 +379,15 @@
     (spaceline-compile))
 #+END_SRC
 
+* Js2-mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package js2-mode
+    :ensure t
+    :mode "\\.js\\'")
+#+End_SRC
+
+
 * Variables
 
 #+BEGIN_SRC emacs-lisp
