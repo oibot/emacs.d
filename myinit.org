@@ -466,8 +466,21 @@
 * Neotree
 
 #+BEGIN_SRC emacs-lisp
-    (use-package neotree
+  (use-package neotree
+    :ensure t
+    :config
+    (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+    (setq projectile-switch-project-action 'neotree-projectile-action)
+    (add-hook 'neotree-mode-hook
+              (lambda ()
+                (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+                (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter))))
+#+END_SRC
+* Rainbow Mode
+
+#+BEGIN_SRC emacs-lisp
+    (use-package rainbow-mode
       :ensure t
       :config
-      (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
+      (add-hook 'prog-mode-hook 'rainbow-mode))
 #+END_SRC
