@@ -348,10 +348,17 @@
 ** General
 
 #+BEGIN_SRC emacs-lisp
-    (setq inhibit-startup-message t)
-    (setq inhibit-splash-screen t)
-    (setq inhibit-startup-echo-area-message t)
-    (setq ring-bell-function 'ignore)
+  (setq inhibit-startup-message t)
+  (setq inhibit-splash-screen t)
+  (setq inhibit-startup-echo-area-message t)
+  (setq ring-bell-function 'ignore)
+
+  (cond
+   ((eq system-type 'darwin)
+    (set-default-font "Source Code Pro 14"))
+   ((eq system-type 'gnu/linux)
+    (set-default-font "Source Code Pro 11")))
+
 #+END_SRC
 
 ** Mode Line
@@ -468,11 +475,6 @@
   (column-number-mode t)
   (size-indication-mode t)
   (scroll-bar-mode -1)
-  (cond
-   ((eq system-type 'darwin)
-    (set-face-attribute 'default nil :height 140))
-   ((eq system-type 'gnu/linux)
-    (set-default-font "Source Code Pro 11")))
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
   (menu-bar-mode -1)
   (set-face-attribute 'mode-line nil :box nil)
