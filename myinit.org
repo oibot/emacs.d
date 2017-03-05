@@ -1,57 +1,145 @@
-* try
+* avy
 
 #+BEGIN_SRC emacs-lisp
-  (use-package try
+    (use-package avy
+      :ensure t)
+#+END_SRC
+
+* beacon mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package beacon
+    :ensure t
+    :diminish beacon-mode
+    :config
+    (beacon-mode))
+#+END_SRC
+
+* Clojure
+
+** clojure mode
+
+  #+BEGIN_SRC emacs-lisp
+        (use-package clojure-mode
+          :ensure t
+          :config
+          (add-hook 'clojure-mode-hook #'paredit-mode)
+          (add-hook 'clojure-mode-hook #'subword-mode)
+          (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+          (add-hook 'clojure-mode-hook #'show-paren-mode))
+  #+END_SRC
+
+** cider
+
+#+BEGIN_SRC emacs-lisp
+  (defvar cider-repl-conditions
+    "(cond
+      (and (resolve 'user/run) (resolve 'user/browser-repl))
+      (eval '(do (user/run) (user/browser-repl)))
+
+      (try
+       (require 'figwheel-sidecar.repl-api)
+       (resolve 'figwheel-sidecar.repl-api/start-figwheel!)
+       (catch Throwable _))
+       (eval '(do (figwheel-sidecar.repl-api/start-figwheel!)
+                  (figwheel-sidecar.repl-api/cljs-repl)))
+
+      (try
+       (require 'cemerick.piggieback)
+       (resolve 'cemerick.piggieback/cljs-repl)
+       (catch Throwable _))
+      (eval '(cemerick.piggieback/cljs-repl (cljs.repl.rhino/repl-env)))
+
+      :else
+      (throw (ex-info \"Failed to initialize CLJS repl.\" {})))")
+
+  (use-package cider
+    :ensure t
+    :config
+    (add-hook 'cider-repl-mode-hook #'paredit-mode)
+    (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+    (setq cider-cljs-lein-repl cider-repl-conditions))
+#+END_SRC
+
+** clj-refactor
+
+#+BEGIN_SRC emacs-lisp
+  (use-package clj-refactor
+    :ensure t
+    :config
+    (add-hook 'clojure-mode-hook #'(lambda ()
+                                     (clj-refactor-mode t)
+                                     (cljr-add-keybindings-with-prefix "C-c C-m")
+                                     (yas-minor-mode t))))
+#+END_SRC
+
+** clojure-cheatsheet
+
+#+BEGIN_SRC emacs-lisp
+  (use-package clojure-cheatsheet
     :ensure t)
 #+END_SRC
 
-* which-key
+
+* company
 
 #+BEGIN_SRC emacs-lisp
-  (use-package which-key
+  (use-package company
     :ensure t
-    :diminish which-key-mode
+    :diminish company-mode
     :config
-    (which-key-mode))
+    (global-company-mode)
+    (setq company-idle-delay 0.2)
+    (setq company-minimum-prefix-length 1)
+    (setq company-show-numbers t)
+    (setq company-tooltip-limit 20))
 #+END_SRC
 
-* org
+* Configurations
 
 #+BEGIN_SRC emacs-lisp
-  (use-package org
+  (tool-bar-mode -1)
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (ido-mode 1)
+  (blink-cursor-mode -1)
+  (global-auto-revert-mode t)
+  (global-hl-line-mode 1)
+  (line-number-mode t)
+  (column-number-mode t)
+  (size-indication-mode t)
+  (scroll-bar-mode -1)
+  (add-hook 'before-save-hook #'delete-trailing-whitespace)
+  (menu-bar-mode -1)
+  (set-face-attribute 'mode-line nil :box nil)
+  (set-face-attribute 'mode-line-inactive nil :box nil)
+#+END_SRC
+* counsel
+
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel
+    :ensure t
+    :bind
+    ("C-s" . swiper)
+    ("M-x" . counsel-M-x)
+    ("C-x C-f" . counsel-find-file)
+    :config
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) "))
+
+  (use-package counsel-projectile
     :ensure t
     :config
-    (setq org-directory "~/Dropbox/org")
-    (setq org-agenda-files '("~/Dropbox/org"))
-    (setq org-log-done 'time)
-
-    (setq org-startup-indented t)
-    (setq org-startup-with-inline-images t)
-    (setq org-startup-with-latex-preview t)
-    (plist-put org-format-latex-options :scale 2.5)
-    (setq org-src-fontify-natively t)
-
-    (require 'ob-clojure)
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((clojure . t)
-       (emacs-lisp . t)))
-    (setq org-babel-clojure-backend 'cider)
-    (setq org-confirm-babel-evaluate nil)
-
-    (add-hook 'org-mode-hook (lambda ()
-                               (setq fill-column 90)
-                               (turn-on-auto-fill))))
-
-  (use-package org-bullets
-    :ensure t
-    :config
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+    (counsel-projectile-on))
 #+END_SRC
 
+* Elpy
+
 #+BEGIN_SRC emacs-lisp
-  (use-package ox-reveal
-    :ensure t)
+  (use-package elpy
+    :ensure t
+    :config
+    (elpy-enable))
 #+END_SRC
 
 * evil
@@ -96,26 +184,59 @@
     (evil-commentary-mode t))
 #+END_SRC
 
-* avy
+* Exec-Path-From-Shell
+
 
 #+BEGIN_SRC emacs-lisp
-    (use-package avy
-      :ensure t)
-#+END_SRC
-
-* company
-
-#+BEGIN_SRC emacs-lisp
-  (use-package company
+  (use-package exec-path-from-shell
     :ensure t
-    :diminish company-mode
     :config
-    (global-company-mode)
-    (setq company-idle-delay 0.2)
-    (setq company-minimum-prefix-length 1)
-    (setq company-show-numbers t)
-    (setq company-tooltip-limit 20))
+    (exec-path-from-shell-initialize))
 #+END_SRC
+
+* git-gutter
+
+#+BEGIN_SRC emacs-lisp
+  (use-package git-gutter
+    :ensure t
+    :diminish git-gutter-mode
+    :config
+    (global-git-gutter-mode t)
+    (custom-set-variables '(git-gutter:update-interval 2)))
+#+END_SRC
+
+* Highlight Indent Guides
+
+#+BEGIN_SRC emacs-lisp
+  (use-package highlight-indent-guides
+    :ensure t
+    :config
+    (setq highlight-indent-guides-method 'character))
+#+END_SRC
+* ido vertical mode
+
+#+BEGIN_SRC emacs-lisp
+    (use-package ido-vertical-mode
+      :ensure t
+      :config
+      (ido-vertical-mode 1)
+      (setq ido-vertical-show-count t))
+#+END_SRC
+
+* iedit
+
+#+BEGIN_SRC emacs-lisp
+  (use-package iedit
+    :ensure t)
+#+END_SRC
+
+* Js2-mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package js2-mode
+    :ensure t
+    :mode "\\.js\\'")
+#+End_SRC
 
 * magit
 
@@ -126,6 +247,104 @@
     (("C-x g" . magit-status)))
 #+END_SRC
 
+* markdown-mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode
+    :ensure t
+    :commands (markdown-mode gfm-mode)
+    :mode (("README\\.md\\'" . gfm-mode)
+           ("\\.md\\'" . markdown-mode)
+           ("\\.markdown\\'" . markdown-mode))
+    :init (setq markdown-command "multimarkdown"))
+#+END_SRC
+
+* Neotree
+
+#+BEGIN_SRC emacs-lisp
+  (use-package neotree
+    :ensure t
+    :config
+    (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+    (setq projectile-switch-project-action 'neotree-projectile-action)
+    (add-hook 'neotree-mode-hook
+              (lambda ()
+                (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+                (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter))))
+#+END_SRC
+* Org
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org
+    :ensure t
+    :config
+    (setq org-directory "~/Dropbox/org")
+    (setq org-agenda-files '("~/Dropbox/org"))
+    (setq org-log-done 'time)
+
+    (setq org-startup-indented t)
+    (setq org-startup-with-inline-images t)
+    (setq org-startup-with-latex-preview t)
+    (plist-put org-format-latex-options :scale 2.5)
+    (setq org-src-fontify-natively t)
+
+    (require 'ob-clojure)
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((clojure . t)
+       (emacs-lisp . t)))
+    (setq org-babel-clojure-backend 'cider)
+    (setq org-confirm-babel-evaluate nil)
+
+    (add-hook 'org-mode-hook (lambda ()
+                               (setq fill-column 90)
+                               (turn-on-auto-fill))))
+
+  (use-package org-bullets
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ox-reveal
+    :ensure t)
+#+END_SRC
+
+** org-journal
+
+#+BEGIN_SRC emacs-lisp
+    (use-package org-journal
+      :ensure t
+      :config
+      (setq org-journal-dir "~/Dropbox/org/journal"))
+#+End_SRC
+
+* paredit
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package paredit
+      :ensure t)
+  #+END_SRC
+
+* projectile
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package projectile
+      :ensure t
+      :diminish projectile-mode
+      :config
+      (projectile-global-mode 1))
+  #+END_SRC
+
+* Rainbow Mode
+
+#+BEGIN_SRC emacs-lisp
+    (use-package rainbow-mode
+      :ensure t
+      :config
+      (add-hook 'prog-mode-hook 'rainbow-mode))
+#+END_SRC
 * rainbow-delimiters
 
   #+BEGIN_SRC emacs-lisp
@@ -142,86 +361,6 @@
     ("M-x" . smex))
 #+END_SRC
 
-* projectile
-
-  #+BEGIN_SRC emacs-lisp
-    (use-package projectile
-      :ensure t
-      :diminish projectile-mode
-      :config
-      (projectile-global-mode 1))
-  #+END_SRC
-
-* paredit
-
-  #+BEGIN_SRC emacs-lisp
-    (use-package paredit
-      :ensure t)
-  #+END_SRC
-
-* clojure mode
-
-  #+BEGIN_SRC emacs-lisp
-        (use-package clojure-mode
-          :ensure t
-          :config
-          (add-hook 'clojure-mode-hook #'paredit-mode)
-          (add-hook 'clojure-mode-hook #'subword-mode)
-          (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-          (add-hook 'clojure-mode-hook #'show-paren-mode))
-  #+END_SRC
-
-* clj-refactor
-
-#+BEGIN_SRC emacs-lisp
-  (use-package clj-refactor
-    :ensure t
-    :config
-    (add-hook 'clojure-mode-hook #'(lambda ()
-                                     (clj-refactor-mode t)
-                                     (cljr-add-keybindings-with-prefix "C-c C-m")
-                                     (yas-minor-mode t))))
-#+END_SRC
-
-* cider
-
-#+BEGIN_SRC emacs-lisp
-  (defvar cider-repl-conditions
-    "(cond
-      (and (resolve 'user/run) (resolve 'user/browser-repl))
-      (eval '(do (user/run) (user/browser-repl)))
-
-      (try
-       (require 'figwheel-sidecar.repl-api)
-       (resolve 'figwheel-sidecar.repl-api/start-figwheel!)
-       (catch Throwable _))
-       (eval '(do (figwheel-sidecar.repl-api/start-figwheel!)
-                 (figwheel-sidecar.repl-api/cljs-repl)))
-
-      (try
-       (require 'cemerick.piggieback)
-       (resolve 'cemerick.piggieback/cljs-repl)
-       (catch Throwable _))
-      (eval '(cemerick.piggieback/cljs-repl (cljs.repl.rhino/repl-env)))
-
-      :else
-      (throw (ex-info \"Failed to initialize CLJS repl.\" {})))")
-
-  (use-package cider
-    :ensure t
-    :config
-    (add-hook 'cider-repl-mode-hook #'paredit-mode)
-    (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
-    (setq cider-cljs-lein-repl cider-repl-conditions))
-#+END_SRC
-
-* clojure-cheatsheet
-
-#+BEGIN_SRC emacs-lisp
-  (use-package clojure-cheatsheet
-    :ensure t)
-#+END_SRC
-
 * swift-mode
 
 #+BEGIN_SRC emacs-lisp
@@ -229,118 +368,11 @@
     :ensure t)
 #+END_SRC
 
-* iedit
+* try
 
 #+BEGIN_SRC emacs-lisp
-  (use-package iedit
+  (use-package try
     :ensure t)
-#+END_SRC
-
-* ido vertical mode
-
-#+BEGIN_SRC emacs-lisp
-    (use-package ido-vertical-mode
-      :ensure t
-      :config
-      (ido-vertical-mode 1)
-      (setq ido-vertical-show-count t))
-#+END_SRC
-
-* beacon mode
-
-#+BEGIN_SRC emacs-lisp
-  (use-package beacon
-    :ensure t
-    :diminish beacon-mode
-    :config
-    (beacon-mode))
-#+END_SRC
-
-* git-gutter
-
-#+BEGIN_SRC emacs-lisp
-  (use-package git-gutter
-    :ensure t
-    :diminish git-gutter-mode
-    :config
-    (global-git-gutter-mode t)
-    (custom-set-variables '(git-gutter:update-interval 2)))
-#+END_SRC
-
-* web-mode
-
-#+BEGIN_SRC emacs-lisp
-  (use-package web-mode
-    :ensure t
-    :mode "\\.html?\\'")
-#+END_SRC
-
-* undo-tree
-
-#+BEGIN_SRC emacs-lisp
-  (use-package undo-tree
-    :ensure t
-    :diminish undo-tree-mode)
-#+END_SRC
-
-* counsel
-
-#+BEGIN_SRC emacs-lisp
-  (use-package counsel
-    :ensure t
-    :bind
-    ("C-s" . swiper)
-    ("M-x" . counsel-M-x)
-    ("C-x C-f" . counsel-find-file)
-    :config
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-count-format "(%d/%d) "))
-
-  (use-package counsel-projectile
-    :ensure t
-    :config
-    (counsel-projectile-on))
-#+END_SRC
-
-* markdown-mode
-
-#+BEGIN_SRC emacs-lisp
-  (use-package markdown-mode
-    :ensure t
-    :commands (markdown-mode gfm-mode)
-    :mode (("README\\.md\\'" . gfm-mode)
-           ("\\.md\\'" . markdown-mode)
-           ("\\.markdown\\'" . markdown-mode))
-    :init (setq markdown-command "multimarkdown"))
-#+END_SRC
-
-* yaml-mode
-
-#+BEGIN_SRC emacs-lisp
-  (use-package yaml-mode
-    :ensure t
-    :mode (("\\.yml\\'" . yaml-mode)))
-
-#+END_SRC
-
-* Elpy
-
-#+BEGIN_SRC emacs-lisp
-  (use-package elpy
-    :ensure t
-    :config
-    (elpy-enable))
-#+END_SRC
-
-* Exec-Path-From-Shell
-
-
-#+BEGIN_SRC emacs-lisp
-  (use-package exec-path-from-shell
-    :ensure t
-    :config
-    (exec-path-from-shell-initialize))
 #+END_SRC
 
 * UI
@@ -421,13 +453,13 @@
   (load-theme 'solarized-light)
 #+END_SRC
 
-* Js2-mode
+* undo-tree
 
 #+BEGIN_SRC emacs-lisp
-  (use-package js2-mode
+  (use-package undo-tree
     :ensure t
-    :mode "\\.js\\'")
-#+End_SRC
+    :diminish undo-tree-mode)
+#+END_SRC
 
 * Variables
 
@@ -462,58 +494,29 @@
   (defalias 'list-buffers 'ibuffer)
 #+END_SRC
 
-* Configurations
+* web-mode
 
 #+BEGIN_SRC emacs-lisp
-  (tool-bar-mode -1)
-  (fset 'yes-or-no-p 'y-or-n-p)
-  (ido-mode 1)
-  (blink-cursor-mode -1)
-  (global-auto-revert-mode t)
-  (global-hl-line-mode 1)
-  (line-number-mode t)
-  (column-number-mode t)
-  (size-indication-mode t)
-  (scroll-bar-mode -1)
-  (add-hook 'before-save-hook #'delete-trailing-whitespace)
-  (menu-bar-mode -1)
-  (set-face-attribute 'mode-line nil :box nil)
-  (set-face-attribute 'mode-line-inactive nil :box nil)
-#+END_SRC
-* Neotree
-
-#+BEGIN_SRC emacs-lisp
-  (use-package neotree
+  (use-package web-mode
     :ensure t
-    :config
-    (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-    (setq projectile-switch-project-action 'neotree-projectile-action)
-    (add-hook 'neotree-mode-hook
-              (lambda ()
-                (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
-                (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter))))
+    :mode "\\.html?\\'")
 #+END_SRC
-* Rainbow Mode
+
+* which-key
 
 #+BEGIN_SRC emacs-lisp
-    (use-package rainbow-mode
-      :ensure t
-      :config
-      (add-hook 'prog-mode-hook 'rainbow-mode))
-#+END_SRC
-* Highlight Indent Guides
-
-#+BEGIN_SRC emacs-lisp
-  (use-package highlight-indent-guides
+  (use-package which-key
     :ensure t
+    :diminish which-key-mode
     :config
-    (setq highlight-indent-guides-method 'character))
+    (which-key-mode))
 #+END_SRC
-* org-journal
+
+* yaml-mode
 
 #+BEGIN_SRC emacs-lisp
-    (use-package org-journal
-      :ensure t
-      :config
-      (setq org-journal-dir "~/Dropbox/org/journal"))
-#+End_SRC
+  (use-package yaml-mode
+    :ensure t
+    :mode (("\\.yml\\'" . yaml-mode)))
+
+#+END_SRC
