@@ -80,7 +80,6 @@
     :ensure t)
 #+END_SRC
 
-
 * company
 
 #+BEGIN_SRC emacs-lisp
@@ -450,7 +449,7 @@
     (setq solarized-use-more-italic t)
     (setq x-underline-at-descent-line t))
 
-  (load-theme 'solarized-light)
+  (load-theme 'solarized-dark)
 #+END_SRC
 
 * undo-tree
