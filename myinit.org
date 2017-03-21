@@ -112,10 +112,10 @@
   (set-face-attribute 'mode-line nil :box nil)
   (set-face-attribute 'mode-line-inactive nil :box nil)
 #+END_SRC
-* counsel
+* Ivy
 
 #+BEGIN_SRC emacs-lisp
-  (use-package counsel
+  (use-package ivy
     :ensure t
     :bind
     ("C-s" . swiper)
@@ -212,15 +212,15 @@
     :config
     (setq highlight-indent-guides-method 'character))
 #+END_SRC
-* ido vertical mode
+# * ido vertical mode
 
-#+BEGIN_SRC emacs-lisp
-    (use-package ido-vertical-mode
-      :ensure t
-      :config
-      (ido-vertical-mode 1)
-      (setq ido-vertical-show-count t))
-#+END_SRC
+# #+BEGIN_SRC emacs-lisp
+#     (use-package ido-vertical-mode
+#       :ensure t
+#       :config
+#       (ido-vertical-mode 1)
+#       (setq ido-vertical-show-count t))
+# #+END_SRC
 
 * iedit
 
@@ -237,7 +237,7 @@
     :mode "\\.js\\'")
 #+End_SRC
 
-* magit
+* Magit
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
@@ -375,7 +375,6 @@
 #+END_SRC
 
 * UI
-
 ** General
 
 #+BEGIN_SRC emacs-lisp
@@ -386,7 +385,7 @@
 
   (cond
    ((eq system-type 'darwin)
-    (set-default-font "Source Code Pro 14"))
+    (set-default-font "Source Code Pro Light 14"))
    ((eq system-type 'gnu/linux)
     (set-default-font "Source Code Pro 11")))
 
@@ -406,15 +405,16 @@
 
   (use-package spaceline-config
     :ensure spaceline
-    :after powerline
     :config
     (setq-default
      powerline-height 50
-     powerline-default-separator 'utf-8)
+     powerline-default-separator 'utf-8))
+#+END_SRC
 
-    ;; Stolen from:
-    ;; https://github.com/domtronn/all-the-icons.el/wiki/Spaceline
-    (spaceline-define-segment
+#+BEGIN_SRC emacs-lisp
+  ;; Stolen from:
+  ;; https://github.com/domtronn/all-the-icons.el/wiki/Spaceline
+  (spaceline-define-segment
       ati-mode-icon "An `all-the-icons' segment for the current buffer mode"
       (let ((icon (all-the-icons-icon-for-buffer)))
         (unless (symbolp icon) ;; This implies it's the major mode
@@ -422,19 +422,22 @@
                       'help-echo (format "Major-mode: `%s`" major-mode)
                       'display '(raise 0.0)
                       'face `(:height 1.0 :family ,(all-the-icons-icon-family-for-buffer) :inherit)))))
+#+END_SRC
 
-    (spaceline-install
-     'main
-     '((buffer-modified)
-       ((remote-host buffer-id) :face highlight-face)
-       (process :when active))
-     '((selection-info :face region :when mark-active)
-       (version-control)
-       ((flycheck-error flycheck-warning flycheck-info) :when active)
-       (which-function)
-       (line-column)
-       (global :when active)
-       (ati-mode-icon) :face default-face)))
+#+BEGIN_SRC emacs-lisp
+  (spaceline-install
+   'main
+   '(
+     ((buffer-modified) :face highlight-face)
+     ((remote-host buffer-id) :face highlight-face)
+     (process :when active)
+     )
+   '(
+     (line-column :when active)
+     (version-control :when active)
+     ((ati-mode-icon) :face default-face)
+      )
+   )
 #+END_SRC
 
 ** Themes
