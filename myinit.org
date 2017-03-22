@@ -212,15 +212,6 @@
     :config
     (setq highlight-indent-guides-method 'character))
 #+END_SRC
-# * ido vertical mode
-
-# #+BEGIN_SRC emacs-lisp
-#     (use-package ido-vertical-mode
-#       :ensure t
-#       :config
-#       (ido-vertical-mode 1)
-#       (setq ido-vertical-show-count t))
-# #+END_SRC
 
 * iedit
 
@@ -351,15 +342,6 @@
       :ensure t)
   #+END_SRC
 
-* smex
-
-#+BEGIN_SRC emacs-lisp
-  (use-package smex
-    :ensure t
-    :bind
-    ("M-x" . smex))
-#+END_SRC
-
 * swift-mode
 
 #+BEGIN_SRC emacs-lisp
@@ -469,11 +451,11 @@
   (setq user-full-name "Tobias Ostner"
         user-mail-address "tobias.ostner@gmail.com")
 
-  (setq ido-enable-flex-matching t)
-  (setq ido-everywhere t)
-  (setq ido-use-virtual-buffers t)
-  (setq ido-create-new-buffer 'always)
-  (setq ido-use-filename-at-point t)
+  ;; (setq ido-enable-flex-matching t)
+  ;; (setq ido-everywhere t)
+  ;; (setq ido-use-virtual-buffers t)
+  ;; (setq ido-create-new-buffer 'always)
+  ;; (setq ido-use-filename-at-point t)
 
   (setq require-final-newline t)
   (setq-default tab-width 8)
