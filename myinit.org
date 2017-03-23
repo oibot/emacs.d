@@ -94,24 +94,6 @@
     (setq company-tooltip-limit 20))
 #+END_SRC
 
-* Configurations
-
-#+BEGIN_SRC emacs-lisp
-  (tool-bar-mode -1)
-  (fset 'yes-or-no-p 'y-or-n-p)
-  (ido-mode 1)
-  (blink-cursor-mode -1)
-  (global-auto-revert-mode t)
-  (global-hl-line-mode 1)
-  (line-number-mode t)
-  (column-number-mode t)
-  (size-indication-mode t)
-  (scroll-bar-mode -1)
-  (add-hook 'before-save-hook #'delete-trailing-whitespace)
-  (menu-bar-mode -1)
-  (set-face-attribute 'mode-line nil :box nil)
-  (set-face-attribute 'mode-line-inactive nil :box nil)
-#+END_SRC
 * Ivy
 
 #+BEGIN_SRC emacs-lisp
@@ -364,6 +346,18 @@
   (setq inhibit-splash-screen t)
   (setq inhibit-startup-echo-area-message t)
   (setq ring-bell-function 'ignore)
+
+  (tool-bar-mode -1)
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (blink-cursor-mode -1)
+  (global-auto-revert-mode t)
+  (global-hl-line-mode 1)
+  (line-number-mode t)
+  (column-number-mode t)
+  (size-indication-mode t)
+  (scroll-bar-mode -1)
+  (add-hook 'before-save-hook #'delete-trailing-whitespace)
+  (menu-bar-mode -1)
 
   (cond
    ((eq system-type 'darwin)
