@@ -498,3 +498,10 @@
     :mode (("\\.yml\\'" . yaml-mode)))
 
 #+END_SRC
+* Dockerfile-mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dockerfile-mode
+    :ensure t
+    :mode "Dockerfile\\'")
+#+END_SRC
