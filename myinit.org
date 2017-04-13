@@ -1,8 +1,8 @@
 * avy
 
 #+BEGIN_SRC emacs-lisp
-    (use-package avy
-      :ensure t)
+  (use-package avy
+    :ensure t)
 #+END_SRC
 
 * beacon mode
@@ -149,7 +149,13 @@
     (evil-mode t) ;; must be set after evil leader mode
     (evil-leader/set-leader "<SPC>")
     (evil-leader/set-key
-      "a" 'avy-goto-char
+      ;; avy
+      "a1" 'avy-goto-char
+      "a2" 'avy-goto-char-2
+      "at" 'avy-goto-char-timer
+      "al" 'avy-goto-line
+      "aw" 'avy-goto-word-1
+      ;; paredit
       "pw)" 'paredit-wrap-round
       "pw]" 'paredit-wrap-square
       "pw}" 'paredit-wrap-curly
