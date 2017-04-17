@@ -94,24 +94,20 @@
     (setq company-tooltip-limit 20))
 #+END_SRC
 
-* Ivy
+* Counsel
 
 #+BEGIN_SRC emacs-lisp
-  (use-package ivy
+  (use-package counsel
     :ensure t
     :bind
     ("C-s" . swiper)
     ("M-x" . counsel-M-x)
     ("C-x C-f" . counsel-find-file)
+    ("C-c k" . counsel-ag)
     :config
     (ivy-mode 1)
     (setq ivy-use-virtual-buffers t)
     (setq ivy-count-format "(%d/%d) "))
-
-  (use-package counsel-projectile
-    :ensure t
-    :config
-    (counsel-projectile-on))
 #+END_SRC
 
 * Elpy
@@ -270,13 +266,16 @@
     (org-babel-do-load-languages
      'org-babel-load-languages
      '((clojure . t)
-       (emacs-lisp . t)))
+       (emacs-lisp . t)
+       (ditaa . t)))
     (setq org-babel-clojure-backend 'cider)
     (setq org-confirm-babel-evaluate nil)
 
     (add-hook 'org-mode-hook (lambda ()
                                (setq fill-column 90)
-                               (turn-on-auto-fill))))
+                               (turn-on-auto-fill)))
+
+    (setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar"))
 
   (use-package org-bullets
     :ensure t
@@ -314,6 +313,13 @@
       :config
       (projectile-global-mode 1))
   #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel-projectile
+    :ensure t
+    :config
+    (counsel-projectile-on))
+#+END_SRC
 
 * Rainbow Mode
 
