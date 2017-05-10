@@ -1,8 +1,10 @@
 * avy
 
 #+BEGIN_SRC emacs-lisp
-  (use-package avy
-    :ensure t)
+    (use-package avy
+      :ensure t
+      :config
+      (setq avy-background t))
 #+END_SRC
 
 * beacon mode
@@ -373,7 +375,7 @@
 
   (cond
    ((eq system-type 'darwin)
-    (set-default-font "Envy Code R 14"))
+    (set-default-font "Envy Code R 15"))
    ((eq system-type 'gnu/linux)
     (set-default-font "Source Code Pro 11")))
 
