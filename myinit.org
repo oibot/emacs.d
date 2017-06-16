@@ -251,38 +251,40 @@
 * Org
 
 #+BEGIN_SRC emacs-lisp
-  (use-package org
-    :ensure t
-    :config
-    (setq org-directory "~/Nextcloud/org")
-    (setq org-agenda-files '("~/Nextcloud/org"))
-    (setq org-log-done 'time)
+      (use-package org
+        :ensure t
+        :config
+        (setq org-directory "~/Nextcloud/org")
+        (setq org-agenda-files '("~/Nextcloud/org"))
+        (setq org-log-done 'time)
 
-    (setq org-startup-indented t)
-    (setq org-startup-with-inline-images t)
-    (setq org-startup-with-latex-preview t)
-    (plist-put org-format-latex-options :scale 2.5)
-    (setq org-src-fontify-natively t)
+        (setq org-startup-indented t)
+        (setq org-startup-with-inline-images t)
+        (setq org-startup-with-latex-preview nil)
+        (plist-put org-format-latex-options :scale 1.5)
+        (setq org-src-fontify-natively t)
 
-    (require 'ob-clojure)
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((clojure . t)
-       (emacs-lisp . t)
-       (ditaa . t)))
-    (setq org-babel-clojure-backend 'cider)
-    (setq org-confirm-babel-evaluate nil)
+        (require 'ob-clojure)
+        (org-babel-do-load-languages
+         'org-babel-load-languages
+         '((clojure . t)
+           (emacs-lisp . t)
+           (ditaa . t)
+           (python . t)
+           (ipython . t)))
+        (setq org-babel-clojure-backend 'cider)
+        (setq org-confirm-babel-evaluate nil)
 
-    (add-hook 'org-mode-hook (lambda ()
-                               (setq fill-column 90)
-                               (turn-on-auto-fill)))
+        (add-hook 'org-mode-hook (lambda ()
+                                   (setq fill-column 90)
+                                   (turn-on-auto-fill)))
 
-    (setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar"))
+        (setq org-ditaa-jar-path "/usr/local/Cellar/ditaa/0.10/libexec/ditaa0_10.jar"))
 
-  (use-package org-bullets
-    :ensure t
-    :config
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+      (use-package org-bullets
+        :ensure t
+        :config
+        (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
