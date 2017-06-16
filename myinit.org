@@ -112,15 +112,6 @@
     (setq ivy-count-format "(%d/%d) "))
 #+END_SRC
 
-* Elpy
-
-#+BEGIN_SRC emacs-lisp
-  (use-package elpy
-    :ensure t
-    :config
-    (elpy-enable))
-#+END_SRC
-
 * evil
 
 #+BEGIN_SRC emacs-lisp
@@ -170,7 +161,6 @@
 #+END_SRC
 
 * Exec-Path-From-Shell
-
 
 #+BEGIN_SRC emacs-lisp
   (use-package exec-path-from-shell
@@ -520,4 +510,24 @@
   (use-package dockerfile-mode
     :ensure t
     :mode "Dockerfile\\'")
+#+END_SRC
+* Python
+
+#+BEGIN_SRC emacs-lisp
+  (use-package elpy
+    :ensure t
+    :config
+    (elpy-enable))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ob-ipython
+    :ensure t
+    :config
+    (require 'ob-ipython))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-jedi
+    :ensure t)
 #+END_SRC
