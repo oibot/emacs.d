@@ -377,7 +377,7 @@
 
   (cond
    ((eq system-type 'darwin)
-    (set-default-font "Envy Code R 15"))
+    (set-default-font "Envy Code R 14"))
    ((eq system-type 'gnu/linux)
     (set-default-font "Source Code Pro 11")))
 
