@@ -435,6 +435,8 @@
     (setq solarized-high-contrast-mode-line t)
     (setq solarized-use-more-italic t)
     (setq x-underline-at-descent-line t))
+  (use-package spacemacs-theme :ensure t)
+  (use-package gruvbox-theme :ensure t)
 
   (load-theme 'solarized-dark)
 #+END_SRC
