@@ -18,3 +18,11 @@
 (load custom-file 'noerror)
 
 (org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org"))
+
+(defvar emacs-root (file-name-directory load-file-name)
+  "The root directory of emacs")
+(defvar custom-dir (expand-file-name "custom" emacs-root)
+  "The directory with my custom tweaks")
+(add-to-list 'load-path custom-dir)
+
+(require 'core)

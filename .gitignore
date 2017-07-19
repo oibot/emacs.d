@@ -1,7 +1,9 @@
 # Ignore everything
-*
+/*
+/*/
 
 # Except
 !.gitignore
 !init.el
 !myinit.org
+!/custom/
