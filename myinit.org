@@ -1,4 +1,4 @@
-* avy
+* Avy
 
 #+BEGIN_SRC emacs-lisp
     (use-package avy
@@ -7,7 +7,7 @@
       (setq avy-background t))
 #+END_SRC
 
-* beacon mode
+* Beacon Mode
 
 #+BEGIN_SRC emacs-lisp
   (use-package beacon
@@ -17,77 +17,12 @@
     (beacon-mode))
 #+END_SRC
 
-* Clojure
-
-** clojure mode
-
-  #+BEGIN_SRC emacs-lisp
-        (use-package clojure-mode
-          :ensure t
-          :config
-          (add-hook 'clojure-mode-hook #'paredit-mode)
-          (add-hook 'clojure-mode-hook #'subword-mode)
-          (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-          (add-hook 'clojure-mode-hook #'show-paren-mode))
-  #+END_SRC
-
-** cider
-
-#+BEGIN_SRC emacs-lisp
-  (defvar cider-repl-conditions
-    "(cond
-      (and (resolve 'user/run) (resolve 'user/browser-repl))
-      (eval '(do (user/run) (user/browser-repl)))
-
-      (try
-       (require 'figwheel-sidecar.repl-api)
-       (resolve 'figwheel-sidecar.repl-api/start-figwheel!)
-       (catch Throwable _))
-       (eval '(do (figwheel-sidecar.repl-api/start-figwheel!)
-                  (figwheel-sidecar.repl-api/cljs-repl)))
-
-      (try
-       (require 'cemerick.piggieback)
-       (resolve 'cemerick.piggieback/cljs-repl)
-       (catch Throwable _))
-      (eval '(cemerick.piggieback/cljs-repl (cljs.repl.rhino/repl-env)))
-
-      :else
-      (throw (ex-info \"Failed to initialize CLJS repl.\" {})))")
-
-  (use-package cider
-    :ensure t
-    :config
-    (add-hook 'cider-repl-mode-hook #'paredit-mode)
-    (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
-    (setq cider-cljs-lein-repl cider-repl-conditions))
-#+END_SRC
-
-** clj-refactor
-
-#+BEGIN_SRC emacs-lisp
-  (use-package clj-refactor
-    :ensure t
-    :config
-    (add-hook 'clojure-mode-hook #'(lambda ()
-                                     (clj-refactor-mode t)
-                                     (cljr-add-keybindings-with-prefix "C-c C-m")
-                                     (yas-minor-mode t))))
-#+END_SRC
-
-** clojure-cheatsheet
-
-#+BEGIN_SRC emacs-lisp
-  (use-package clojure-cheatsheet
-    :ensure t)
-#+END_SRC
-
 * Company
 
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :ensure t
-    :diminish company-mode
+    :diminish ""
     :config
     (global-company-mode)
     (setq company-idle-delay 0.2)
@@ -112,7 +47,7 @@
     (setq ivy-count-format "(%d/%d) "))
 #+END_SRC
 
-* evil
+* Evil
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil
@@ -124,7 +59,13 @@
     (evil-put-property 'evil-state-properties 'motion   :tag " MOTION ")
     (evil-put-property 'evil-state-properties 'emacs    :tag " EMACS ")
     (evil-put-property 'evil-state-properties 'replace  :tag " REPLACE ")
-    (evil-put-property 'evil-state-properties 'operator :tag " OPERTR "))
+    (evil-put-property 'evil-state-properties 'operator :tag " OPERTR ")
+    (setq evil-emacs-state-cursor  '("red" box))
+    (setq evil-normal-state-cursor '("gray" box))
+    (setq evil-visual-state-cursor '("gray" box))
+    (setq evil-insert-state-cursor '("gray" bar))
+    (setq evil-motion-state-cursor '("gray" box))
+    )
 
   (use-package evil-surround
     :ensure t
@@ -213,7 +154,7 @@
     (("C-x g" . magit-status)))
 #+END_SRC
 
-* markdown-mode
+* Markdown-Mode
 
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
@@ -359,7 +300,8 @@
   (fset 'yes-or-no-p 'y-or-n-p)
   (blink-cursor-mode -1)
   (global-auto-revert-mode t)
-  (global-hl-line-mode 1)
+  ;; (global-hl-line-mode 1)
+  (add-hook 'prog-mode-hook #'hl-line-mode)
   (line-number-mode t)
   (column-number-mode t)
   (size-indication-mode t)
@@ -533,5 +475,25 @@
 
 #+BEGIN_SRC emacs-lisp
   (use-package company-jedi
-    :ensure t)
+    :ensure t
+    :config
+    (add-to-list 'company-backends 'company-jedi))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package pyvenv
+    :ensure t
+    :config
+    (setenv "WORKON_HOME" "~/anaconda3/envs/")
+    (pyvenv-mode t))
+#+END_SRC
+
+* Highlight-Symbol
+
+#+BEGIN_SRC emacs-lisp
+  (use-package highlight-symbol
+    :ensure t
+    :diminish ""
+    :config
+    (setq-default highlight-symbol-idle-delay 1.5))
 #+END_SRC

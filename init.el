@@ -26,3 +26,4 @@
 (add-to-list 'load-path custom-dir)
 
 (require 'core)
+(require 'languages)
