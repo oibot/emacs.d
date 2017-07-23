@@ -8,4 +8,12 @@
   :config
   (linum-relative-on))
 
+(use-package flycheck
+  :ensure t
+  :commands 'global-flycheck-mode
+  :init
+  (global-flycheck-mode))
+
 (provide 'core)
+
+;;; core.el ends here

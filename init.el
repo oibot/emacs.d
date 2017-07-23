@@ -29,3 +29,4 @@
 
 (require 'core)
 (require 'languages)
+(require 'ui)
