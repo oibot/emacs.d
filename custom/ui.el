@@ -14,6 +14,7 @@
 (blink-cursor-mode -1)
 (global-auto-revert-mode t)
 (add-hook 'prog-mode-hook #'hl-line-mode)
+(add-hook 'prog-mode-hook #'linum-mode)
 (line-number-mode t)
 (column-number-mode t)
 (size-indication-mode t)

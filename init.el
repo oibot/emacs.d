@@ -14,8 +14,6 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(setq gc-cons-threshold 50000000)
-
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror)
 
