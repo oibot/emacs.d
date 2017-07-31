@@ -22,6 +22,14 @@
   :init
   (global-flycheck-mode))
 
+(use-package ace-window
+  :init (setq aw-dispatch-always t)
+  :ensure t)
+
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status)))
+
 ;; Evil:
 
   (use-package evil
@@ -66,7 +74,9 @@
         "k" 'windmove-up
         "l" 'windmove-right
         ;; neotree
-        "n" 'neotree-toggle))
+        "n" 'neotree-toggle
+        ;; ace-window
+        "w" 'ace-window))
 
     (use-package evil-commentary
       :ensure t
