@@ -7,7 +7,6 @@
 
 ;; CLOJURE
 
-;; TODO: Put hooks in the use-package of target (https://github.com/jwiegley/use-package/issues/228)
 (use-package clojure-mode
   :ensure t
   :config
@@ -50,6 +49,79 @@
     (setq flycheck-swift-sdk-path "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk")
     :config
     (flycheck-swift-setup)))
+
+
+
+
+;; Markdown
+
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+
+
+
+
+;; Python
+
+(use-package elpy
+  :ensure t
+  :config
+
+  (elpy-enable)
+
+  (use-package company-jedi
+    :ensure t
+    :config
+    (add-to-list 'company-backends 'company-jedi))
+
+  (use-package pyvenv
+    :ensure t
+    :config
+    (setenv "WORKON_HOME" "~/anaconda3/envs/")
+    (pyvenv-mode t)))
+
+
+
+
+;; Yaml
+
+(use-package yaml-mode
+  :ensure t
+  :mode (("\\.yml\\'" . yaml-mode)))
+
+
+
+
+;; Web
+
+(use-package web-mode
+  :ensure t
+  :mode "\\.html?\\'")
+
+
+
+
+;; Dockerfile
+
+(use-package dockerfile-mode
+  :ensure t
+  :mode "Dockerfile\\'")
+
+
+
+
+;; Javascript
+
+(use-package js2-mode
+  :ensure t
+  :mode "\\.js\\'")
+
+
 
 
 

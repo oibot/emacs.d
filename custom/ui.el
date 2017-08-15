@@ -29,9 +29,6 @@
   (set-frame-font "Source Code Pro 11")))
 
 (use-package smart-mode-line
-  :init
-  (setq sml/shorten-directory t)
-  (setq sml/shorten-modes t)
   :ensure t)
 
 (use-package atom-one-dark-theme :ensure t)
@@ -49,7 +46,9 @@
 
 (use-package gruvbox-theme :ensure t)
 
-(load-theme 'spacemacs-light)
+(use-package dracula-theme :ensure t)
+
+(load-theme 'solarized-dark)
 
 
 ;;; Old mode line

@@ -13,11 +13,10 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+(setq use-package-always-ensure t)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror)
-
-(org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org"))
 
 (defvar emacs-root (file-name-directory load-file-name)
   "The root directory of emacs")
