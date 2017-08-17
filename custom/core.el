@@ -5,7 +5,6 @@
 ;;; Code:
 
 (setq gc-cons-threshold 50000000)
-(setq require-final-newline t)
 (setq whitespace-style '(face space-mark indentation trailing))
 (setq whitespace-display-mappings
       '((space-mark 32 [183] [46])
@@ -14,11 +13,21 @@
         (space-mark 2336 [2340] [95])
         (space-mark 3616 [3620] [95])
         (space-mark 3872 [3876] [95])))
-(setq indent-tabs-mode nil)
-(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-(setq make-backup-files nil)
-(setq ispell-program-name "aspell")
+(setq backup-directory-alist `((".*" . ,temporary-file-directory))
+      auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+      make-backup-files nil)
+(setq ispell-program-name "aspell"
+      ispell-dictionary "deutsch8")
+
+(setq-default
+ delete-by-moving-to-trash t
+ initial-scratch-message ""
+ select-enable-clipboard t
+ sentence-end-double-space nil)
+
+(use-package flyspell-correct
+  :defer t
+  :ensure t)
 
 (use-package ranger
   :commands (ranger-override-dired-mode)
@@ -92,8 +101,8 @@
 
 (use-package exec-path-from-shell
   :ensure t
-  :config
-  (exec-path-from-shell-initialize))
+  :if (memq window-system '(mac ns))
+  :config (exec-path-from-shell-initialize))
 
 (use-package highlight-indent-guides
   :ensure t
@@ -189,16 +198,17 @@
 
   (use-package org-journal
     :ensure t
-    :config
-    (setq org-journal-dir "~/Dropbox/org/journal"))
+    :init
+    (setq org-journal-dir "~/Nextcloud/org/journal"))
 
     (use-package ob-ipython
     :ensure t))
 
 (use-package rainbow-mode
   :ensure t
-  :config
-  (add-hook 'prog-mode-hook 'rainbow-mode))
+  :commands rainbow-mode
+  :init
+  (add-hook 'prog-mode-hook #'rainbow-mode))
 
 (use-package rainbow-delimiters
   :ensure t)

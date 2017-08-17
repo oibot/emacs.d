@@ -8,6 +8,7 @@
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-echo-area-message t)
 (setq ring-bell-function 'ignore)
+(setq require-final-newline t)
 
 (tool-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -24,7 +25,7 @@
 
 (cond
  ((eq system-type 'darwin)
-  (set-frame-font "Envy Code R 14"))
+  (set-frame-font "Envy Code R 15"))
  ((eq system-type 'gnu/linux)
   (set-frame-font "Source Code Pro 11")))
 
