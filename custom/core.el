@@ -5,17 +5,11 @@
 ;;; Code:
 
 (setq gc-cons-threshold 50000000)
-(setq whitespace-style '(face space-mark indentation trailing))
-(setq whitespace-display-mappings
-      '((space-mark 32 [183] [46])
-        (space-mark 160 [164] [95])
-        (space-mark 2208 [2212] [95])
-        (space-mark 2336 [2340] [95])
-        (space-mark 3616 [3620] [95])
-        (space-mark 3872 [3876] [95])))
+
 (setq backup-directory-alist `((".*" . ,temporary-file-directory))
       auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
       make-backup-files nil)
+
 (setq ispell-program-name "aspell"
       ispell-dictionary "deutsch8")
 
@@ -55,13 +49,14 @@
 
 (use-package counsel
   :ensure t
+  :diminish ivy-mode
   :bind
   ("C-s" . swiper)
   ("M-x" . counsel-M-x)
   ("C-x C-f" . counsel-find-file)
   ("C-c k" . counsel-ag)
   :config
-  (ivy-mode 1)
+  (ivy-mode t)
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "(%d/%d) "))
 
@@ -73,10 +68,11 @@
 (use-package projectile
   :ensure t
   :init
+  (setq projectile-completion-system 'ivy)
+  (setq projectile-enable-caching t)
   :diminish projectile-mode
   :config
   (projectile-mode 1)
-  (setq projectile-completion-system 'ivy)
 
   (use-package counsel-projectile
     :ensure t
@@ -112,15 +108,20 @@
 (use-package iedit
   :ensure t)
 
-  (use-package neotree
-    :ensure t
-    :config
-    (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-    (setq projectile-switch-project-action 'neotree-projectile-action)
-    (add-hook 'neotree-mode-hook
-              (lambda ()
-                (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
-                (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter))))
+(use-package neotree
+  :defer t
+  :ensure t
+  :init
+  (setq
+   neo-theme (if (display-graphic-p) 'icons 'arrow)
+   neo-autorefresh t
+   neo-smart-open t
+   neo-force-change-root t
+   neo-vc-integration '(face char))
+  (add-hook 'neotree-mode-hook
+	    (lambda ()
+	      (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+	      (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter))))
 
 (use-package which-key
   :ensure t
@@ -159,6 +160,7 @@
 
 (use-package org
   :ensure t
+  :defer t
   :config
   (setq org-directory "~/Nextcloud/org")
   (setq org-agenda-files '("~/Nextcloud/org"))
@@ -170,6 +172,9 @@
   (plist-put org-format-latex-options :scale 1.5)
   (setq org-src-fontify-natively t)
 
+  (use-package ob-ipython
+    :ensure t)
+
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((clojure . t)
@@ -179,6 +184,7 @@
      (ipython . t)))
   (setq org-babel-clojure-backend 'cider)
   (setq org-confirm-babel-evaluate nil)
+  (setq org-src-window-setup 'current-window)
 
   (add-hook 'org-mode-hook (lambda ()
                              (setq fill-column 90)
@@ -199,13 +205,11 @@
   (use-package org-journal
     :ensure t
     :init
-    (setq org-journal-dir "~/Nextcloud/org/journal"))
-
-    (use-package ob-ipython
-    :ensure t))
+    (setq org-journal-dir "~/Nextcloud/org/journal")))
 
 (use-package rainbow-mode
   :ensure t
+  :diminish rainbow-mode
   :commands rainbow-mode
   :init
   (add-hook 'prog-mode-hook #'rainbow-mode))
@@ -236,11 +240,7 @@
     (evil-leader/set-leader "<SPC>")
     (evil-leader/set-key
       ;; avy
-      "a1" 'avy-goto-char
-      "a2" 'avy-goto-char-2
-      "at" 'avy-goto-char-timer
-      "al" 'avy-goto-line
-      "aw" 'avy-goto-word-1
+      "a" 'avy-goto-word-1
       ;; paredit
       "pw)" 'paredit-wrap-round
       "pw]" 'paredit-wrap-square

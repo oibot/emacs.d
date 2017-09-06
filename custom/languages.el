@@ -43,7 +43,6 @@
   :config
   (use-package flycheck-swift
     :ensure t
-    :defer
     :init
     (setq flycheck-swift-target "arm64-apple-ios10")
     (setq flycheck-swift-sdk-path "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk")

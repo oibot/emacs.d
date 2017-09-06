@@ -1,4 +1,4 @@
-;;; ui.el --- Setting up the UI
+;; ui.el --- Setting up the UI
 
 ;;; Commentary:
 
@@ -22,6 +22,9 @@
 (scroll-bar-mode -1)
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 (menu-bar-mode -1)
+(show-paren-mode t)
+
+(diminish 'undo-tree-mode)
 
 (cond
  ((eq system-type 'darwin)
@@ -29,27 +32,27 @@
  ((eq system-type 'gnu/linux)
   (set-frame-font "Source Code Pro 11")))
 
-(use-package smart-mode-line
-  :ensure t)
-
 (use-package atom-one-dark-theme :ensure t)
-
 (use-package zenburn-theme :ensure t)
-
 (use-package solarized-theme
   :ensure t
   :config
   (setq solarized-high-contrast-mode-line t)
   (setq solarized-use-more-italic t)
   (setq x-underline-at-descent-line t))
-
 (use-package spacemacs-theme :ensure t)
-
 (use-package gruvbox-theme :ensure t)
-
 (use-package dracula-theme :ensure t)
 
-(load-theme 'solarized-dark)
+(load-theme 'spacemacs-dark)
+
+(use-package spaceline
+  :ensure t
+  :config
+  (require 'spaceline-config)
+  (setq powerline-default-separator 'utf-8)
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+  (spaceline-spacemacs-theme))
 
 
 ;;; Old mode line
